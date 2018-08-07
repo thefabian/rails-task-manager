@@ -1,0 +1,26 @@
+<div class="container">
+  <h1>My Tasks</h1>
+
+  <div class="list-item">
+    <ul>
+      <% @tasks.each do |task| %>
+      <li>
+        <% if task.completed %>
+          <%= link_to update_task_path(task.id, task: { completed: false }), method: :patch do %>
+            <input type="checkbox" checked />
+          <% end %>
+        <% else %>
+          <%= link_to update_task_path(task.id, task: { completed: true }), method: :patch do %>
+            <input type="checkbox" />
+          <% end %>
+        <% end %>
+        <%= link_to task.title, task_path(task.id) %>
+        <%= link_to "- <i class='far fa-trash-alt'></i>".html_safe, task_path(task), method: :delete, data: { confirm: "Delete task: #{task.title}?" } %>
+      </li>
+      <br>
+      <% end %>
+    </ul>
+  </div>
+
+  <%= link_to "+ Add a new task", tasks_new_path %>
+</div>
